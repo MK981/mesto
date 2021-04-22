@@ -1,0 +1,15 @@
+.profile__description {
+  color: #fff;
+  margin: 0;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 16px;
+}
+
+@media (max-width: 445px) {
+  .profile__description {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
