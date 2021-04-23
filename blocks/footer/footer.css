@@ -6,5 +6,6 @@
 @media (max-width: 847px) {
   .footer {
     padding-left: 19px;
+    margin: 48px auto 36px;
   }
 }

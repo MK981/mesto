@@ -1,30 +1,23 @@
 let editButton = document.querySelector('.profile__rectangle');
 let closeButton = document.querySelector('.popup__close');
-let name1 = document.querySelector('.profile__name');
+let profName = document.querySelector('.profile__name');
 let description = document.querySelector('.profile__description');
-
-function showPopup() {
-  let popup = document.querySelector('.popup');
-  popup.classList.add('popup_opened');
-}
-
-function closePopup() {
-  let popup = document.querySelector('.popup');
-  popup.classList.remove('popup_opened');
-}
-
-editButton.addEventListener('click', showPopup);
-closeButton.addEventListener('click', closePopup);
-
-
+let popup = document.querySelector('.popup');
 // Находим форму в DOM
 let formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
 let nameInput = formElement.querySelector('.popup__input_type_name');
 let jobInput = formElement.querySelector('.popup__input_type_job');
 
-nameInput.value = name1.textContent;
-jobInput.value = description.textContent;
+function showPopup() {
+  nameInput.value = profName.textContent;
+  jobInput.value = description.textContent;
+  popup.classList.add('popup_opened');
+}
+
+function closePopup() {
+  popup.classList.remove('popup_opened');
+}
 
 function formSubmitHandler (evt) {
     evt.preventDefault();
@@ -32,10 +25,12 @@ function formSubmitHandler (evt) {
     let nameValue = nameInput.value;
     let jobValue = jobInput.value;
 
-    name1.textContent = nameValue;
+    profName.textContent = nameValue;
     description.textContent = jobValue;
 
     closePopup();
 }
 
+editButton.addEventListener('click', showPopup);
+closeButton.addEventListener('click', closePopup);
 formElement.addEventListener('submit', formSubmitHandler);
