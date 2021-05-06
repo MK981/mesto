@@ -1,25 +1,27 @@
-let editButton = document.querySelector('.profile__edit-button');
-let profName = document.querySelector('.profile__name');
-let description = document.querySelector('.profile__description');
-let addButton = document.querySelector('.profile__add-button');
-let elContainer = document.querySelector('.elements');
+const editButton = document.querySelector('.profile__edit-button');
+const profName = document.querySelector('.profile__name');
+const description = document.querySelector('.profile__description');
+const addButton = document.querySelector('.profile__add-button');
+const elContainer = document.querySelector('.elements');
 
-let firstPopup = document.querySelector('.popup_type_edit-form'); //первый попап
-let closeButtonF = document.querySelector('.popup__close_type_edit');
+const editPopup = document.querySelector('.popup_type_edit-form'); //первый попап
+const closeButtonF = document.querySelector('.popup__close_type_edit');
 
-let secondPopup = document.querySelector('.popup_type_add-card'); //второй попап
-let closeButtonS = document.querySelector('.popup__close_type_add');
+const addPopup = document.querySelector('.popup_type_add-card'); //второй попап
+const closeButtonS = document.querySelector('.popup__close_type_add');
 
-let imagePopup = document.querySelector('.popup_type_image'); //попап картинки
-let closeButtonT = document.querySelector('.popup__close_type_image');
+const imagePopup = document.querySelector('.popup_type_image'); //попап картинки
+const closeButtonT = document.querySelector('.popup__close_type_image');
 
-let formElement = document.querySelector('.popup__form_type_edit'); //форма попап 1
-let nameInput = formElement.querySelector('.popup__input_type_name');
-let jobInput = formElement.querySelector('.popup__input_type_job');
+const formElement = document.querySelector('.popup__form_type_edit'); //форма попап 1
+const nameInput = formElement.querySelector('.popup__input_type_name');
+const jobInput = formElement.querySelector('.popup__input_type_job');
 
-let secondForm = document.querySelector('.popup__form_type_add'); //форма попап 2
-let placeInput = secondForm.querySelector('.popup__input_type_place');
-let linkInput = secondForm.querySelector('.popup__input_type_link');
+const addForm = document.querySelector('.popup__form_type_add'); //форма попап 2
+const placeInput = addForm.querySelector('.popup__input_type_place');
+const linkInput = addForm.querySelector('.popup__input_type_link');
+
+const elTemplate = document.querySelector('#el-template').content;
 
 function fillForm () {
   nameInput.value = profName.textContent;
@@ -27,7 +29,6 @@ function fillForm () {
 }
 
 function openPopup(popup) {
-  fillForm();
   popup.classList.add('popup_opened');
 }
 
@@ -41,7 +42,7 @@ function formSubmitHandler (evt) {
     profName.textContent = nameInput.value;
     description.textContent = jobInput.value;
 
-    closePopup(firstPopup);
+    closePopup(editPopup);
 }
 
 
@@ -73,10 +74,10 @@ const initialCards = [
 ];
 
 function createCard(name, link) {
-  const elTemplate = document.querySelector('#el-template').content;
+
   const element = elTemplate.querySelector('.elements__card').cloneNode(true);
 
-  let elImage = element.querySelector('.elements__img');
+  const elImage = element.querySelector('.elements__img');
 
   elImage.src = link;
   elImage.alt = name;
@@ -89,19 +90,20 @@ function createCard(name, link) {
 
   //удаление
   element.querySelector('.elements__delete').addEventListener('click', function(evt) {
-    evt.target.closest('div').remove();
+    evt.target.closest('.elements__card').remove();
   });
 
   //попап
-  element.querySelector('.elements__overlay').addEventListener('click', function(evt) {
-    let imageLink = imagePopup.querySelector('.popup__img');
-    let imageText = imagePopup.querySelector('.popup__text');
+  elImage.addEventListener('click', function(evt) {
+    const imageLink = imagePopup.querySelector('.popup__img');
+    const imageText = imagePopup.querySelector('.popup__text');
 
-    imagePopup.classList.add('popup_opened');
+    openPopup(imagePopup);
 
-    imageLink.src = evt.path[1].children[0].src;
-    imageLink.alt = evt.path[1].children[0].alt;
-    imageText.textContent = evt.path[1].children[2].children[0].textContent;
+    imageLink.src = evt.target.src;
+    imageLink.alt = name;
+    imageText.textContent = name;
+
   });
 
   return element;
@@ -113,20 +115,23 @@ initialCards.forEach((card) => {
 });
 
 
-function secondFormSubmit (evt) {
+function addFormSubmit (evt) {
   evt.preventDefault();
 
   const newCard = createCard(placeInput.value, linkInput.value);
   elContainer.prepend(newCard);
 
-  closePopup(secondPopup);
+  closePopup(addPopup);
 }
 
 
-editButton.addEventListener('click', function () {openPopup(firstPopup);});
-addButton.addEventListener('click', function () {openPopup(secondPopup);});
-closeButtonF.addEventListener('click', function () {closePopup(firstPopup)});
-closeButtonS.addEventListener('click', function () {closePopup(secondPopup)});
+editButton.addEventListener('click', function () {
+  fillForm();
+  openPopup(editPopup);
+});
+addButton.addEventListener('click', function () {openPopup(addPopup);});
+closeButtonF.addEventListener('click', function () {closePopup(editPopup)});
+closeButtonS.addEventListener('click', function () {closePopup(addPopup)});
 closeButtonT.addEventListener('click', function () {closePopup(imagePopup)});
 formElement.addEventListener('submit', formSubmitHandler);
-secondForm.addEventListener('submit', secondFormSubmit);
+addForm.addEventListener('submit', addFormSubmit);
