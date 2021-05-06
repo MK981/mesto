@@ -9,7 +9,7 @@
 </head>
 <body class="page">
   <header class="header">
-    <img src="images/logo.svg" alt="Логотип" class="header__logo">
+    <a href="#"><img src="images/logo.svg" alt="Логотип" class="header__logo"></a>
   </header>
 
   <main class="main">
@@ -19,12 +19,12 @@
         <div class="profile__info">
           <div class="profile__info-line">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button type="button" class="profile__rectangle"></button>
+            <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
           </div>
         <p class="profile__description">Исследователь океана</p>
         </div>
       </div>
-      <button type="button" class="profile__add-button"></button>
+      <button type="button" class="profile__add-button" aria-label="Добавить место"></button>
     </section>
 
     <section class="elements">
@@ -36,40 +36,40 @@
     <p class="footer__text">&copy; 2021 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_type_edit-form">
     <div class="popup__container">
       <h2 class="popup__name">Редактировать профиль</h2>
-      <form class="popup__form" name="popup-form">
+      <form class="popup__form popup__form_type_edit" name="popup-form">
         <input type="text" class="popup__input popup__input_type_name" name="name-input" required>
         <input type="text" class="popup__input popup__input_type_job" name="job-input" required>
         <button type="submit" class="popup__submit">Сохранить</button>
       </form>
-      <button type="button" class="popup__close"></button>
+      <button type="button" class="popup__close popup__close_type_edit" aria-label="Закрыть"></button>
     </div>
   </div>
 
-  <div class="sec-popup">
-    <div class="sec-popup__container">
-      <h2 class="sec-popup__name">Новое место</h2>
-      <form class="sec-popup__form" name="sec-popup-form">
-        <input type="text" class="sec-popup__input sec-popup__input_type_place" name="place-input" required placeholder="Название">
-        <input type="text" class="sec-popup__input sec-popup__input_type_link" name="link-input" required placeholder="Ссылка на картинку">
-        <button type="submit" class="sec-popup__submit">Создать</button>
+  <div class="popup popup_type_add-card">
+    <div class="popup__container">
+      <h2 class="popup__name">Новое место</h2>
+      <form class="popup__form popup__form_type_add" name="popup-form">
+        <input type="text" class="popup__input popup__input_type_place" name="place-input" placeholder="Название" required>
+        <input type="text" class="popup__input popup__input_type_link" name="link-input" placeholder="Ссылка на картинку" required>
+        <button type="submit" class="popup__submit">Сохранить</button>
       </form>
-      <button type="button" class="sec-popup__close"></button>
+      <button type="button" class="popup__close popup__close_type_add" aria-label="Закрыть"></button>
     </div>
   </div>
 
-  <div class="image-popup">
-    <div class="image-popup__container">
-      <img src="#" alt="#" class="image-popup__img">
-      <p class="image-popup__text"></p>
-      <button type="button" class="image-popup__close"></button>
+  <div class="popup popup_type_image">
+    <div class="popup__image-container">
+      <img src="#" alt="#" class="popup__img">
+      <p class="popup__text"></p>
+      <button type="button" class="popup__close popup__close_type_image" aria-label="Закрыть"></button>
     </div>
   </div>
 
   <template id="el-template">
-    <div class="elements__element">
+    <div class="elements__card">
       <img src="#" alt="#" class="elements__img">
       <div class="elements__overlay"></div>
       <div class="elements__place">

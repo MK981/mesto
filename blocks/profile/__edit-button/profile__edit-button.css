@@ -1,4 +1,4 @@
-.profile__rectangle {
+.profile__edit-button {
   width: 22px;
   height: 22px;
   border: 1px solid white;
@@ -11,12 +11,12 @@
   cursor: pointer;
 }
 
-.profile__rectangle:hover {
+.profile__edit-button:hover {
   opacity: 0.6;
 }
 
 @media (max-width: 540px) {
-  .profile__rectangle  {
+  .profile__edit-button  {
     width: 16px;
     height: 16px;
   }

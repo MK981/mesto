@@ -3,6 +3,10 @@
   height: 33px;
 }
 
+.header__logo:hover {
+  opacity: 0.7;
+}
+
 @media (max-width: 425px) {
   .header__logo {
     width: 104px;
