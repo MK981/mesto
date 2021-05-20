@@ -30,6 +30,12 @@ function fillForm () {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    }
+  });
 }
 
 function closePopup(popup) {
@@ -124,7 +130,6 @@ function addFormSubmit (evt) {
   closePopup(addPopup);
 }
 
-
 editButton.addEventListener('click', function () {
   fillForm();
   openPopup(editPopup);
@@ -135,3 +140,34 @@ closeButtonS.addEventListener('click', function () {closePopup(addPopup)});
 closeButtonT.addEventListener('click', function () {closePopup(imagePopup)});
 formElement.addEventListener('submit', formSubmitHandler);
 addForm.addEventListener('submit', addFormSubmit);
+
+editPopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(editPopup);
+  }
+});
+
+addPopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(addPopup);
+  }
+});
+
+imagePopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(imagePopup);
+  }
+});
+
+const formConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_active'
+};
+
+enableValidation(formConfig);
+
+
