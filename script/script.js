@@ -9,6 +9,7 @@ const popups = document.querySelectorAll('.popup');
 const editPopup = document.querySelector('.popup_type_edit-form'); //первый попап
 
 const addPopup = document.querySelector('.popup_type_add-card'); //второй попап
+const addSubmit = document.querySelector('.popup__submit_type_add');
 
 const imagePopup = document.querySelector('.popup_type_image'); //попап картинки
 const imageLink = imagePopup.querySelector('.popup__img');
@@ -134,7 +135,8 @@ function addFormSubmit (evt) {
   placeInput.value = '';
   linkInput.value = '';
 
-  enableValidation(formConfig);
+  addSubmit.classList.add(formConfig.inactiveButtonClass);
+  addSubmit.setAttribute('disabled', 'true');
 
   closePopup(addPopup);
 }
