@@ -1,3 +1,6 @@
+import Card from './card.js';
+import FormValidator from './FormValidator.js';
+
 const editButton = document.querySelector('.profile__edit-button');
 const profName = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
@@ -23,7 +26,7 @@ const addForm = document.querySelector('.popup__form_type_add'); //форма п
 const placeInput = addForm.querySelector('.popup__input_type_place');
 const linkInput = addForm.querySelector('.popup__input_type_link');
 
-const elTemplate = document.querySelector('#el-template').content;
+//const elTemplate = document.querySelector('#el-template').content;
 
 function fillForm () {
   nameInput.value = profName.textContent;
@@ -86,42 +89,9 @@ const initialCards = [
   }
 ];
 
-function createCard(name, link) {
-
-  const element = elTemplate.querySelector('.elements__card').cloneNode(true);
-
-  const elImage = element.querySelector('.elements__img');
-
-  elImage.src = link;
-  elImage.alt = name;
-  element.querySelector('.elements__name').textContent = name;
-
-  //кнопка лайка
-  element.querySelector('.elements__like').addEventListener('click', function(evt) {
-    evt.target.classList.toggle('elements__like_active');
-  });
-
-  //удаление
-  element.querySelector('.elements__delete').addEventListener('click', function(evt) {
-    evt.target.closest('.elements__card').remove();
-  });
-
-  //попап
-  elImage.addEventListener('click', function(evt) {
-
-    openPopup(imagePopup);
-
-    imageLink.src = evt.target.src;
-    imageLink.alt = name;
-    imageText.textContent = name;
-
-  });
-
-  return element;
-}
-
 initialCards.forEach((card) => {
-  const newCard = createCard(card.name, card.link);
+  const newCard = new Card(card.name, card.link).generateCard();
+
   elContainer.append(newCard);
 });
 
@@ -129,7 +99,7 @@ initialCards.forEach((card) => {
 function addFormSubmit (evt) {
   evt.preventDefault();
 
-  const newCard = createCard(placeInput.value, linkInput.value);
+  const newCard = new Card(placeInput.value, linkInput.value).generateCard();
   elContainer.prepend(newCard);
 
   placeInput.value = '';
@@ -169,5 +139,10 @@ const formConfig = {
   errorClass: 'popup__error_active'
 };
 
-enableValidation(formConfig);
+const formEditValidator = new FormValidator(formConfig, '.popup__form_type_edit');
+formEditValidator.enableValidation();
 
+const formAddValidator = new FormValidator(formConfig, '.popup__form_type_add');
+formAddValidator.enableValidation();
+
+export{openPopup, imagePopup, imageLink, imageText};
