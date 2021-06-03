@@ -1,4 +1,4 @@
-import Card from './card.js';
+import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
 const editButton = document.querySelector('.profile__edit-button');
@@ -89,24 +89,26 @@ const initialCards = [
   }
 ];
 
-initialCards.forEach((card) => {
-  const newCard = new Card(card.name, card.link).generateCard();
+function createCard(name, link, template) {
+  const newCard = new Card(name, link, template).generateCard();
 
-  elContainer.append(newCard);
+  return newCard;
+}
+
+initialCards.forEach((card) => {
+  elContainer.append(createCard(card.name, card.link, '#el-template'));
 });
 
 
 function addFormSubmit (evt) {
   evt.preventDefault();
 
-  const newCard = new Card(placeInput.value, linkInput.value).generateCard();
-  elContainer.prepend(newCard);
+  elContainer.prepend(createCard(placeInput.value, linkInput.value, '#el-template'));
 
   placeInput.value = '';
   linkInput.value = '';
 
-  addSubmit.classList.add(formConfig.inactiveButtonClass);
-  addSubmit.setAttribute('disabled', 'true');
+  formAddValidator.disableButton();
 
   closePopup(addPopup);
 }
@@ -139,10 +141,10 @@ const formConfig = {
   errorClass: 'popup__error_active'
 };
 
-const formEditValidator = new FormValidator(formConfig, '.popup__form_type_edit');
+const formEditValidator = new FormValidator(formConfig, formElement);
 formEditValidator.enableValidation();
 
-const formAddValidator = new FormValidator(formConfig, '.popup__form_type_add');
+const formAddValidator = new FormValidator(formConfig, addForm);
 formAddValidator.enableValidation();
 
 export{openPopup, imagePopup, imageLink, imageText};

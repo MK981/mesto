@@ -2,13 +2,15 @@ import{ openPopup, imagePopup, imageLink, imageText } from './index.js';
 
 class Card {
 
-  constructor(name, link) {
+  constructor(name, link, tempSelector) {
     this._name = name;
     this._link = link;
+
+    this._tempSelector = tempSelector;
   }
 
   _getTemplate() {
-    const elTemplate = document.querySelector('#el-template').content;
+    const elTemplate = document.querySelector(this._tempSelector).content;
     const element = elTemplate.querySelector('.elements__card').cloneNode(true);
 
     return element;
@@ -35,8 +37,8 @@ class Card {
       this._setDeleteClick(evt);
     });
 
-    this._element.querySelector('.elements__img').addEventListener('click', (evt) => {
-      this._setImageClick(evt);
+    this._element.querySelector('.elements__img').addEventListener('click', () => {
+      this._setImageClick();
     });
   }
 
@@ -48,10 +50,10 @@ class Card {
     evt.target.closest('.elements__card').remove();
   }
 
-  _setImageClick(evt) {
+  _setImageClick() {
     openPopup(imagePopup);
 
-    imageLink.src = evt.target.src;
+    imageLink.src = this._link;
     imageLink.alt = this._name;
     imageText.textContent = this._name;
   }
