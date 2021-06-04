@@ -5,7 +5,6 @@ class Card {
   constructor(name, link, tempSelector) {
     this._name = name;
     this._link = link;
-
     this._tempSelector = tempSelector;
   }
 
