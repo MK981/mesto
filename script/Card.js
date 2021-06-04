@@ -5,7 +5,7 @@ class Card {
   constructor(name, link, tempSelector) {
     this._name = name;
     this._link = link;
-
+    
     this._tempSelector = tempSelector;
   }
 
@@ -18,7 +18,6 @@ class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-
     this._setEventListeners();
 
     this._element.querySelector('.elements__img').src = this._link;
