@@ -1,12 +1,12 @@
-import{ openPopup, imagePopup, imageLink, imageText } from './index.js';
-
 class Card {
 
-  constructor(name, link, tempSelector) {
+  constructor(name, link, tempSelector, {handleCardClick}) {
     this._name = name;
     this._link = link;
-    
+
     this._tempSelector = tempSelector;
+
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -37,7 +37,7 @@ class Card {
     });
 
     this._element.querySelector('.elements__img').addEventListener('click', () => {
-      this._setImageClick();
+      this._handleCardClick();
     });
   }
 
@@ -49,13 +49,6 @@ class Card {
     evt.target.closest('.elements__card').remove();
   }
 
-  _setImageClick() {
-    openPopup(imagePopup);
-
-    imageLink.src = this._link;
-    imageLink.alt = this._name;
-    imageText.textContent = this._name;
-  }
 }
 
 export default Card;
