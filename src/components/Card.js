@@ -18,10 +18,11 @@ class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._image = this._element.querySelector('.elements__img');
     this._setEventListeners();
 
-    this._element.querySelector('.elements__img').src = this._link;
-    this._element.querySelector('.elements__img').alt = this._name;
+    this._image.src = this._link;
+    this._image.alt = this._name;
     this._element.querySelector('.elements__name').textContent = this._name;
 
     return this._element;
@@ -36,7 +37,7 @@ class Card {
       this._setDeleteClick(evt);
     });
 
-    this._element.querySelector('.elements__img').addEventListener('click', () => {
+    this._image.addEventListener('click', () => {
       this._handleCardClick();
     });
   }
