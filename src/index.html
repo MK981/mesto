@@ -14,13 +14,19 @@
   <main class="main">
     <section class="profile">
       <div class="profile__prof">
-        <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar">
+        <div class="profile__user">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar">
+          <div class="profile__edit-layer">
+            <button type="button" class="profile__edit-avatar" aria-label="Редактировать аватар"></button>
+          </div>
+        </div>
         <div class="profile__info">
           <div class="profile__info-line">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
           </div>
         <p class="profile__description">Исследователь океана</p>
+        <span class="profile__id"></span>
         </div>
       </div>
       <button type="button" class="profile__add-button" aria-label="Добавить место"></button>
@@ -71,13 +77,36 @@
     </div>
   </div>
 
+  <div class="popup popup_type_avatar">
+    <div class="popup__container popup__container_type_avatar">
+      <h2 class="popup__name">Обновить аватар</h2>
+      <form class="popup__form popup__form_type_avatar" name="popup-form">
+        <input type="url" class="popup__input popup__input_type_avatar" name="ava-input" id="ava-input" placeholder="Ссылка на аватар" required>
+        <span class="popup__error ava-input-error"></span>
+        <button type="submit" class="popup__submit popup__submit_type_avatar">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close popup__close_type_avatar" aria-label="Закрыть"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_type_delete">
+    <div class="popup__container popup__container_type_delete">
+      <h2 class="popup__name">Вы уверены?</h2>
+      <button type="button" class="popup__submit popup__submit_type_delete">Да</button>
+      <button type="button" class="popup__close popup__close_type_delete" aria-label="Закрыть"></button>
+    </div>
+  </div>
+
   <template id="el-template">
     <div class="elements__card">
       <img src="#" alt="#" class="elements__img">
       <div class="elements__overlay"></div>
       <div class="elements__place">
         <h2 class="elements__name"></h2>
-        <button type="button" class="elements__like"></button>
+        <div class="elements__likes">
+          <button type="button" class="elements__like"></button>
+          <span class="elements__like-number">0</span>
+        </div>
       </div>
       <button type="button" class="elements__delete"></button>
     </div>
