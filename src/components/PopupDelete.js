@@ -11,9 +11,10 @@ export default class PopupDelete extends Popup {
     this._submitBt = this._popup.querySelector('.popup__submit');
   }
 
-  open (cardId) {
+  open(cardId, card) {
     super.open();
     this._cardId = cardId;
+    this._card = card;
   }
 
   setEventListeners() {  //перезапис
@@ -31,4 +32,9 @@ export default class PopupDelete extends Popup {
       this._submitBt.textContent = 'Да';
     }
   }
+
+  deleteCard() {
+    this._card.remove();
+  }
+
 }

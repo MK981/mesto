@@ -1,17 +1,10 @@
 export default class UserInfo {
-  constructor({nameSelector, infoSelector, avaSelector, idSelector}) {
+  constructor({nameSelector, infoSelector, avaSelector}) {
     this._name = document.querySelector(nameSelector);
     this._info = document.querySelector(infoSelector);
     this._avatar = document.querySelector(avaSelector);
-    this._id = document.querySelector(idSelector);
-  }
 
-  getUserInfo() {
-    return {
-      name: this._name.textContent,
-      info: this._info.textContent,
-      id: this._id.textContent
-    }
+    this._id = null;
   }
 
   setUserInfo(name, info) {
@@ -24,6 +17,14 @@ export default class UserInfo {
   }
 
   setUserId(id) {
-    this._id.textContent = id;
+    this._id = id;
+  }
+
+  getUserInfo() {
+    return {
+      name: this._name.textContent,
+      info: this._info.textContent,
+      id: this._id
+    }
   }
 }

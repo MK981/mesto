@@ -1,11 +1,12 @@
 class Card {
 
-  constructor(name, link, likes, likesArray, tempSelector, idType, cardId, {handleCardClick, handleDeleteClick, handleLike, handleDislike, userId}) {
-    this._name = name;
-    this._link = link;
-    this._likes = likes;
-
-    this._likesArray = likesArray;
+  constructor(data, tempSelector, {handleCardClick, handleDeleteClick, handleLike, handleDislike, userId}) {
+    this._name = data.name;
+    this._link = data.link;
+    this._likes = data.likes.length;
+    this._likesArray = data.likes;
+    this._ownerId = data.owner._id;
+    this._cardId = data._id;
 
     this._tempSelector = tempSelector;
 
@@ -13,8 +14,6 @@ class Card {
     this._handleDeleteClick = handleDeleteClick;
     this._handleLike = handleLike;
     this._handleDislike = handleDislike;
-    this._idType = idType;
-    this._cardId = cardId;
 
     this._userId = userId;
   }
@@ -33,7 +32,7 @@ class Card {
     this._setEventListeners();
 
 
-    if(this._idType === 2) {
+    if(this._userId != this._ownerId) {
       this._delete.remove();
     }
 
@@ -72,13 +71,11 @@ class Card {
   _setLike() {
     this._handleLike();
     this._like.classList.toggle('elements__like_active');
-    this._plusLike();
   }
 
   _deleteLike() {
     this._handleDislike();
     this._like.classList.toggle('elements__like_active');
-    this._minusLike();
   }
 
   _setDeleteClick() {
@@ -86,13 +83,8 @@ class Card {
     this._handleDeleteClick();
   }
 
-
-  _plusLike() {
-    this._likeNumber.textContent = this._likes + 1;
-  }
-
-  _minusLike() {
-    this._likeNumber.textContent = this._likes - 1;
+  updateLikes(res) {
+    this._likeNumber.textContent = res;
   }
 
 }

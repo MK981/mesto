@@ -5,18 +5,21 @@ export default class Api {
     this._contentType = options.headers['Content-Type'];
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  }
+
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: {
         authorization: this._authorization
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   getInitialCards() {
@@ -25,12 +28,7 @@ export default class Api {
       authorization: this._authorization
     }
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(this._checkResponse);
   }
 
   updateUserInfo(name, info) {
@@ -45,12 +43,7 @@ export default class Api {
       about: info
     })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(this._checkResponse);
   }
 
   updateAvatar(link) {
@@ -64,12 +57,7 @@ export default class Api {
         avatar: link
       })
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   addNewCard(name, link) {
@@ -84,12 +72,7 @@ export default class Api {
         link: link
       })
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   deleteCard(cardId) {
@@ -99,12 +82,7 @@ export default class Api {
         authorization: this._authorization
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   setLike(cardId) {
@@ -115,12 +93,7 @@ export default class Api {
         'Content-Type': this._contentType
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   deleteLike(cardId) {
@@ -131,11 +104,6 @@ export default class Api {
         'Content-Type': this._contentType
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 }
