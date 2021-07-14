@@ -142,12 +142,12 @@ const avatarPopup = new PopupWithForm(
     api.updateAvatar(data['ava-input'])
     .then((result) => {
       userInfo.setUserAvatar(result.avatar);
+      avatarPopup.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {avatarPopup.renderLoading(false);})
-    avatarPopup.close();
   },
   ()=>{avaEditValidator.hideErrors();}
 );
